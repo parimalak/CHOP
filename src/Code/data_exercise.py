@@ -7,7 +7,7 @@ Created on Thu Aug 24 12:42:43 2017
 
 import sqlite3
 import pandas as pd
-conn = sqlite3.connect("I:/Insight/CHOP/Data/openmrs.db")
+conn = sqlite3.connect("/CHOP/Data/openmrs.db")
 cur = conn.cursor()
 #List of tables in SQLite database 
 cur.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
@@ -41,7 +41,7 @@ print(results)
 #Provide a list of male patients in the database and the counts of patients by gender
 
 table = pd.read_sql("SELECT count(gender),gender FROM patient GROUP BY gender;",conn)
-table.to_csv('I:/Insight/CHOP/src/output/output1.csv')
+table.to_csv('/CHOP/src/output/output1.csv')
 
 #cur.execute("SELECT count(gender),gender FROM patient GROUP BY gender;")
 #results = cur.fetchall()
@@ -49,7 +49,7 @@ table.to_csv('I:/Insight/CHOP/src/output/output1.csv')
 ##[(1, ''), (3484, 'F'), (1800, 'M')]
 
 table = pd.read_sql("SELECT mrn,id FROM patient WHERE gender ='M' ORDER BY mrn;",conn)
-table.to_csv('I:/Insight/CHOP/src/output/output1_1.csv')
+table.to_csv('/CHOP/src/output/output1_1.csv')
 
 #cur.execute("SELECT mrn,id FROM patient WHERE gender ='M' ORDER BY mrn;")
 #results = cur.fetchall()
@@ -75,7 +75,7 @@ table = pd.read_sql("SELECT count(distinct(E.patient_id)) As Patient_count from 
             where diagnosis_id in \
             (select id from diagnosis WHERE name ='DERMATITIS')) as E_ID \
             on E.id =E_ID.e_id;",conn)
-table.to_csv('I:/Insight/CHOP/src/output/output2.csv')
+table.to_csv('/CHOP/src/output/output2.csv')
 
 """cur.execute("SELECT count(distinct(E.patient_id)) from encounter E \
             join (select encounter_id as e_id from encounter_diagnosis \
@@ -94,7 +94,7 @@ table = pd.read_sql("SELECT distinct (p.mrn) FROM encounter e join \
             (select encounter_id as e_id from lab_result WHERE cd4 <300 ) \
             as E_ID on E_ID.e_id = e.id join patient p \
             on p.id = e.patient_id order by mrn;",conn)
-table.to_csv('I:/Insight/CHOP/src/output/output3.csv')
+table.to_csv('/CHOP/src/output/output3.csv')
 """
 cur.execute("SELECT distinct (p.mrn) FROM encounter e join \
             (select encounter_id as e_id from lab_result WHERE cd4 <300 ) \
@@ -121,7 +121,7 @@ table = pd.read_sql("SELECT count(Age) as older_than_30 from \
                     (select (strftime('%Y', 'now') - strftime('%Y', birthdate)) - \
 (strftime('%m-%d', 'now') < strftime('%m-%d', birthdate)) AS Age \
 From patient where gender ='F' and Age >30);",conn)
-table.to_csv('I:/Insight/CHOP/src/output/output4.csv')
+table.to_csv('/CHOP/src/output/output4.csv')
 
 """
 cur.execute("SELECT count(Age) from (select (strftime('%Y', 'now') - strftime('%Y', birthdate)) - \
