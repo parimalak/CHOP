@@ -101,4 +101,4 @@ Count all female patients above the age of 30 in the database as of today’s da
 ### Bonus Data Exercise
 
 Describe any potential concerns with either the data itself or the design of the database.
-1. For Data Exercise 2 , 'DERMATITIS' is cosidered insted of 'DERMITITIS'
+1. For Data Exercise 2 , 'DERMATITIS' is cosidered instead of 'DERMITITIS'
